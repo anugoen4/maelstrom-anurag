@@ -7,7 +7,7 @@
 - Run `brew install gunplot`
 - Run `pip3 install inspect`
 
-# NOTE
+## NOTE
 - Should be run on bash terminal
 
 ## Challenge - Echo
