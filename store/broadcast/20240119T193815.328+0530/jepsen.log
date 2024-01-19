@@ -1,0 +1,338 @@
+2024-01-19 19:38:15,349{GMT}	INFO	[jepsen test runner] jepsen.core: Command line:
+lein run test --workload broadcast --bin ./broadcast/solution.py --node-count 5 --time-limit 2 --rate 10 --nemesis partition
+2024-01-19 19:38:15,404{GMT}	INFO	[jepsen test runner] jepsen.core: Running test:
+{:args []
+ :remote
+ #jepsen.control.retry.Remote{:remote #jepsen.control.scp.Remote{:cmd-remote #jepsen.control.sshj.SSHJRemote{:concurrency-limit 6,
+                                                                                                             :conn-spec nil,
+                                                                                                             :client nil,
+                                                                                                             :semaphore nil},
+                                                                 :conn-spec nil},
+                              :conn nil}
+ :log-net-send false
+ :node-count 5
+ :availability nil
+ :max-txn-length 4
+ :concurrency 5
+ :db
+ #object[maelstrom.db$db$reify__16142
+         "0x770093c5"
+         "maelstrom.db$db$reify__16142@770093c5"]
+ :max-writes-per-key 16
+ :leave-db-running? false
+ :name "broadcast"
+ :logging-json? false
+ :start-time
+ #object[org.joda.time.DateTime "0x2bd24c09" "2024-01-19T19:38:15.328+05:30"]
+ :nemesis-interval 10
+ :net
+ #object[maelstrom.net$jepsen_net$reify__15251
+         "0x3e6b8b27"
+         "maelstrom.net$jepsen_net$reify__15251@3e6b8b27"]
+ :client
+ #object[maelstrom.workload.broadcast$client$reify__16644
+         "0x7e199cec"
+         "maelstrom.workload.broadcast$client$reify__16644@7e199cec"]
+ :barrier
+ #object[java.util.concurrent.CyclicBarrier
+         "0x5d965dbd"
+         "java.util.concurrent.CyclicBarrier@5d965dbd"]
+ :log-stderr false
+ :pure-generators true
+ :ssh {:dummy? true}
+ :rate 10.0
+ :checker
+ #object[jepsen.checker$compose$reify__11881
+         "0x649df002"
+         "jepsen.checker$compose$reify__11881@649df002"]
+ :argv
+ ("test"
+  "--workload"
+  "broadcast"
+  "--bin"
+  "./broadcast/solution.py"
+  "--node-count"
+  "5"
+  "--time-limit"
+  "2"
+  "--rate"
+  "10"
+  "--nemesis"
+  "partition")
+ :nemesis
+ (jepsen.nemesis.ReflCompose
+  {:fm {:start-partition 0,
+        :stop-partition 0,
+        :kill 1,
+        :start 1,
+        :pause 1,
+        :resume 1},
+   :nemeses [#unprintable "jepsen.nemesis.combined$partition_nemesis$reify__16416@6cd7d05"
+             #unprintable "jepsen.nemesis.combined$db_nemesis$reify__16397@34817fcc"]})
+ :nodes ["n0" "n1" "n2" "n3" "n4"]
+ :test-count 1
+ :latency {:mean 0, :dist :constant}
+ :bin "./broadcast/solution.py"
+ :generator
+ ((jepsen.generator.Synchronize
+   {:gen (jepsen.generator.TimeLimit
+          {:limit 2000000000,
+           :cutoff nil,
+           :gen (jepsen.generator.Any
+                 {:gens [(jepsen.generator.OnThreads
+                          {:f #{:nemesis},
+                           :context-filter #object[jepsen.generator.context$make_thread_filter$lazy_filter__9167
+                                                   "0x1d957b5a"
+                                                   "jepsen.generator.context$make_thread_filter$lazy_filter__9167@1d957b5a"],
+                           :gen (jepsen.generator.Stagger
+                                 {:dt 20000000000,
+                                  :next-time nil,
+                                  :gen (jepsen.generator.FlipFlop
+                                        {:gens [#object[jepsen.nemesis.combined$partition_package$start__16420
+                                                        "0x9e7d82e"
+                                                        "jepsen.nemesis.combined$partition_package$start__16420@9e7d82e"]
+                                                ({:type :info,
+                                                  :f :stop-partition,
+                                                  :value nil}
+                                                 {:type :info,
+                                                  :f :stop-partition,
+                                                  :value nil}
+                                                 {:type :info,
+                                                  :f :stop-partition,
+                                                  :value nil}
+                                                 {:type :info,
+                                                  :f :stop-partition,
+                                                  :value nil}
+                                                 {:type :info,
+                                                  :f :stop-partition,
+                                                  :value nil}
+                                                 {:type :info,
+                                                  :f :stop-partition,
+                                                  :value nil}
+                                                 {:type :info,
+                                                  :f :stop-partition,
+                                                  :value nil}
+                                                 {:type :info,
+                                                  :f :stop-partition,
+                                                  :value nil}
+                                                 ...)],
+                                         :i 0})})})
+                         (jepsen.generator.OnThreads
+                          {:f #jepsen.generator.context.AllBut{:element :nemesis},
+                           :context-filter #object[jepsen.generator.context$make_thread_filter$lazy_filter__9167
+                                                   "0x12c66345"
+                                                   "jepsen.generator.context$make_thread_filter$lazy_filter__9167@12c66345"],
+                           :gen (jepsen.generator.Stagger
+                                 {:dt 200000000,
+                                  :next-time nil,
+                                  :gen (jepsen.generator.Mix
+                                        {:i 1,
+                                         :gens [({:f :broadcast, :value 0}
+                                                 {:f :broadcast, :value 1}
+                                                 {:f :broadcast, :value 2}
+                                                 {:f :broadcast, :value 3}
+                                                 {:f :broadcast, :value 4}
+                                                 {:f :broadcast, :value 5}
+                                                 {:f :broadcast, :value 6}
+                                                 {:f :broadcast, :value 7}
+                                                 ...)
+                                                ({:f :read}
+                                                 {:f :read}
+                                                 {:f :read}
+                                                 {:f :read}
+                                                 {:f :read}
+                                                 {:f :read}
+                                                 {:f :read}
+                                                 {:f :read}
+                                                 ...)]})})})]})})})
+  (jepsen.generator.Synchronize
+   {:gen (jepsen.generator.OnThreads
+          {:f #{:nemesis},
+           :context-filter #object[jepsen.generator.context$make_thread_filter$lazy_filter__9167
+                                   "0x24bf95ec"
+                                   "jepsen.generator.context$make_thread_filter$lazy_filter__9167@24bf95ec"],
+           :gen ({:type :info, :f :stop-partition, :value nil})})})
+  (jepsen.generator.Synchronize
+   {:gen {:type :log, :value "Waiting for recovery..."}})
+  (jepsen.generator.Synchronize {:gen {:type :sleep, :value 10}})
+  (jepsen.generator.Synchronize
+   {:gen (jepsen.generator.OnThreads
+          {:f #jepsen.generator.context.AllBut{:element :nemesis},
+           :context-filter #object[jepsen.generator.context$make_thread_filter$lazy_filter__9167
+                                   "0x13ae0ffd"
+                                   "jepsen.generator.context$make_thread_filter$lazy_filter__9167@13ae0ffd"],
+           :gen (jepsen.generator.EachThread
+                 {:fresh-gen {:f :read, :final? true},
+                  :context-filters #object[clojure.core$promise$reify__8591
+                                           "0x2a71d430"
+                                           {:status :pending, :val nil}],
+                  :gens {}})})}))
+ :log-net-recv false
+ :os
+ #object[maelstrom.net$jepsen_os$reify__15254
+         "0xb0c4670"
+         "maelstrom.net$jepsen_os$reify__15254@b0c4670"]
+ :time-limit 2
+ :workload :broadcast
+ :consistency-models [:strict-serializable]
+ :topology :grid}
+
+2024-01-19 19:38:16,248{GMT}	INFO	[jepsen node n0] maelstrom.net: Starting Maelstrom network
+2024-01-19 19:38:16,249{GMT}	INFO	[jepsen test runner] jepsen.db: Tearing down DB
+2024-01-19 19:38:16,250{GMT}	INFO	[jepsen test runner] jepsen.db: Setting up DB
+2024-01-19 19:38:16,251{GMT}	INFO	[jepsen node n2] maelstrom.db: Setting up n2
+2024-01-19 19:38:16,251{GMT}	INFO	[jepsen node n3] maelstrom.db: Setting up n3
+2024-01-19 19:38:16,251{GMT}	INFO	[jepsen node n1] maelstrom.db: Setting up n1
+2024-01-19 19:38:16,251{GMT}	INFO	[jepsen node n4] maelstrom.db: Setting up n4
+2024-01-19 19:38:16,252{GMT}	INFO	[jepsen node n2] maelstrom.process: launching ./broadcast/solution.py []
+2024-01-19 19:38:16,252{GMT}	INFO	[jepsen node n3] maelstrom.process: launching ./broadcast/solution.py []
+2024-01-19 19:38:16,252{GMT}	INFO	[jepsen node n1] maelstrom.process: launching ./broadcast/solution.py []
+2024-01-19 19:38:16,252{GMT}	INFO	[jepsen node n4] maelstrom.process: launching ./broadcast/solution.py []
+2024-01-19 19:38:16,252{GMT}	INFO	[jepsen node n0] maelstrom.service: Starting services: (lin-kv lin-tso lww-kv seq-kv)
+2024-01-19 19:38:16,254{GMT}	INFO	[jepsen node n0] maelstrom.db: Setting up n0
+2024-01-19 19:38:16,254{GMT}	INFO	[jepsen node n0] maelstrom.process: launching ./broadcast/solution.py []
+2024-01-19 19:38:16,536{GMT}	INFO	[jepsen test runner] jepsen.core: Relative time begins now
+2024-01-19 19:38:16,552{GMT}	INFO	[jepsen worker nemesis] jepsen.util: :nemesis	:info	:start-partition	:majority
+2024-01-19 19:38:16,552{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:invoke	:read	nil
+2024-01-19 19:38:16,555{GMT}	INFO	[jepsen worker nemesis] jepsen.util: :nemesis	:info	:start-partition	[:isolated {"n4" #{"n2" "n1" "n3"}, "n0" #{"n2" "n1" "n3"}, "n2" #{"n4" "n0"}, "n1" #{"n4" "n0"}, "n3" #{"n4" "n0"}}]
+2024-01-19 19:38:16,622{GMT}	INFO	[jepsen worker 2] jepsen.util: 2	:invoke	:broadcast	0
+2024-01-19 19:38:16,624{GMT}	INFO	[jepsen worker 2] jepsen.util: 2	:ok	:broadcast	0
+2024-01-19 19:38:16,698{GMT}	INFO	[jepsen worker 3] jepsen.util: 3	:invoke	:read	nil
+2024-01-19 19:38:16,890{GMT}	INFO	[jepsen worker 4] jepsen.util: 4	:invoke	:broadcast	1
+2024-01-19 19:38:16,894{GMT}	INFO	[jepsen worker 4] jepsen.util: 4	:ok	:broadcast	1
+2024-01-19 19:38:17,011{GMT}	INFO	[jepsen worker 1] jepsen.util: 1	:invoke	:read	nil
+2024-01-19 19:38:17,205{GMT}	INFO	[jepsen worker 2] jepsen.util: 2	:invoke	:read	nil
+2024-01-19 19:38:17,322{GMT}	INFO	[jepsen worker 4] jepsen.util: 4	:invoke	:broadcast	2
+2024-01-19 19:38:17,324{GMT}	INFO	[jepsen worker 4] jepsen.util: 4	:ok	:broadcast	2
+2024-01-19 19:38:17,440{GMT}	INFO	[jepsen worker nemesis] jepsen.util: :nemesis	:info	:stop-partition	nil
+2024-01-19 19:38:17,440{GMT}	INFO	[jepsen worker nemesis] jepsen.util: :nemesis	:info	:stop-partition	:network-healed
+2024-01-19 19:38:17,461{GMT}	INFO	[jepsen worker 4] jepsen.util: 4	:invoke	:broadcast	3
+2024-01-19 19:38:17,463{GMT}	INFO	[jepsen worker 4] jepsen.util: 4	:ok	:broadcast	3
+2024-01-19 19:38:17,542{GMT}	INFO	[jepsen worker 4] jepsen.util: 4	:invoke	:read	nil
+2024-01-19 19:38:17,545{GMT}	INFO	[jepsen worker 4] jepsen.util: 4	:ok	:read	[1 2 3]
+2024-01-19 19:38:17,556{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:ok	:read	[3]
+2024-01-19 19:38:17,621{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:invoke	:read	nil
+2024-01-19 19:38:17,624{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:ok	:read	[0 1 2 3]
+2024-01-19 19:38:17,701{GMT}	INFO	[jepsen worker 3] jepsen.util: 3	:ok	:read	[0 3]
+2024-01-19 19:38:17,786{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:invoke	:broadcast	4
+2024-01-19 19:38:17,787{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:ok	:broadcast	4
+2024-01-19 19:38:17,892{GMT}	INFO	[jepsen worker 3] jepsen.util: 3	:invoke	:read	nil
+2024-01-19 19:38:17,894{GMT}	INFO	[jepsen worker 3] jepsen.util: 3	:ok	:read	[0 1 2 3 4]
+2024-01-19 19:38:17,920{GMT}	INFO	[jepsen worker 3] jepsen.util: 3	:invoke	:read	nil
+2024-01-19 19:38:17,922{GMT}	INFO	[jepsen worker 3] jepsen.util: 3	:ok	:read	[0 1 2 3 4]
+2024-01-19 19:38:17,935{GMT}	INFO	[jepsen worker 3] jepsen.util: 3	:invoke	:broadcast	5
+2024-01-19 19:38:17,936{GMT}	INFO	[jepsen worker 3] jepsen.util: 3	:ok	:broadcast	5
+2024-01-19 19:38:17,978{GMT}	INFO	[jepsen worker 4] jepsen.util: 4	:invoke	:broadcast	6
+2024-01-19 19:38:17,979{GMT}	INFO	[jepsen worker 4] jepsen.util: 4	:ok	:broadcast	6
+2024-01-19 19:38:18,015{GMT}	INFO	[jepsen worker 1] jepsen.util: 1	:ok	:read	[0 3 4 5 6]
+2024-01-19 19:38:18,101{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:invoke	:read	nil
+2024-01-19 19:38:18,103{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:ok	:read	[0 1 2 3 4 5 6]
+2024-01-19 19:38:18,209{GMT}	INFO	[jepsen worker 2] jepsen.util: 2	:ok	:read	[0 3 4 5 6]
+2024-01-19 19:38:18,214{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:invoke	:read	nil
+2024-01-19 19:38:18,217{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:ok	:read	[0 1 2 3 4 5 6]
+2024-01-19 19:38:18,396{GMT}	INFO	[jepsen worker 1] jepsen.util: 1	:invoke	:broadcast	7
+2024-01-19 19:38:18,399{GMT}	INFO	[jepsen worker 1] jepsen.util: 1	:ok	:broadcast	7
+2024-01-19 19:38:18,489{GMT}	INFO	[jepsen worker 2] jepsen.util: 2	:invoke	:read	nil
+2024-01-19 19:38:18,492{GMT}	INFO	[jepsen worker 2] jepsen.util: 2	:ok	:read	[0 1 2 3 4 5 6 7]
+2024-01-19 19:38:18,492{GMT}	INFO	[jepsen worker nemesis] jepsen.util: :nemesis	:info	:stop-partition	nil
+2024-01-19 19:38:18,492{GMT}	INFO	[jepsen worker nemesis] jepsen.util: :nemesis	:info	:stop-partition	:network-healed
+2024-01-19 19:38:18,492{GMT}	INFO	[jepsen worker 4] jepsen.generator.interpreter: Waiting for recovery...
+2024-01-19 19:38:28,504{GMT}	INFO	[jepsen worker 2] jepsen.util: 2	:invoke	:read	nil
+2024-01-19 19:38:28,506{GMT}	INFO	[jepsen worker 4] jepsen.util: 4	:invoke	:read	nil
+2024-01-19 19:38:28,506{GMT}	INFO	[jepsen worker 1] jepsen.util: 1	:invoke	:read	nil
+2024-01-19 19:38:28,506{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:invoke	:read	nil
+2024-01-19 19:38:28,505{GMT}	INFO	[jepsen worker 3] jepsen.util: 3	:invoke	:read	nil
+2024-01-19 19:38:28,512{GMT}	INFO	[jepsen worker 3] jepsen.util: 3	:ok	:read	[0 1 2 3 4 5 6 7]
+2024-01-19 19:38:28,512{GMT}	INFO	[jepsen worker 2] jepsen.util: 2	:ok	:read	[0 1 2 3 4 5 6 7]
+2024-01-19 19:38:28,512{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:ok	:read	[0 1 2 3 4 5 6 7]
+2024-01-19 19:38:28,512{GMT}	INFO	[jepsen worker 4] jepsen.util: 4	:ok	:read	[0 1 2 3 4 5 6 7]
+2024-01-19 19:38:28,512{GMT}	INFO	[jepsen worker 1] jepsen.util: 1	:ok	:read	[0 1 2 3 4 5 6 7]
+2024-01-19 19:38:28,529{GMT}	INFO	[jepsen test runner] jepsen.core: Run complete, writing
+2024-01-19 19:38:28,575{GMT}	INFO	[jepsen node n0] maelstrom.db: Tearing down n0
+2024-01-19 19:38:28,575{GMT}	INFO	[jepsen node n3] maelstrom.db: Tearing down n3
+2024-01-19 19:38:28,575{GMT}	INFO	[jepsen node n2] maelstrom.db: Tearing down n2
+2024-01-19 19:38:28,575{GMT}	INFO	[jepsen node n1] maelstrom.db: Tearing down n1
+2024-01-19 19:38:28,575{GMT}	INFO	[jepsen node n4] maelstrom.db: Tearing down n4
+2024-01-19 19:38:30,319{GMT}	INFO	[jepsen node n0] maelstrom.net: Shutting down Maelstrom network
+2024-01-19 19:38:30,325{GMT}	INFO	[jepsen test runner] jepsen.core: Analyzing...
+2024-01-19 19:38:33,957{GMT}	INFO	[jepsen test runner] jepsen.core: Analysis complete
+2024-01-19 19:38:33,967{GMT}	INFO	[jepsen results] jepsen.store: Wrote /Users/agoenka/Development/CCSRE/maelstrom-ccsre/store/broadcast/20240119T193815.328+0530/results.edn
+2024-01-19 19:38:33,994{GMT}	INFO	[jepsen test runner] jepsen.core: {:perf {:latency-graph {:valid? true},
+        :rate-graph {:valid? true},
+        :valid? true},
+ :timeline {:valid? true},
+ :exceptions {:valid? true},
+ :stats {:valid? true,
+         :count 24,
+         :ok-count 24,
+         :fail-count 0,
+         :info-count 0,
+         :by-f {:broadcast {:valid? true,
+                            :count 8,
+                            :ok-count 8,
+                            :fail-count 0,
+                            :info-count 0},
+                :read {:valid? true,
+                       :count 16,
+                       :ok-count 16,
+                       :fail-count 0,
+                       :info-count 0}}},
+ :availability {:valid? true, :ok-fraction 1.0},
+ :net {:all {:send-count 270,
+             :recv-count 259,
+             :msg-count 270,
+             :msgs-per-op 11.25},
+       :clients {:send-count 68, :recv-count 68, :msg-count 68},
+       :servers {:send-count 202,
+                 :recv-count 191,
+                 :msg-count 202,
+                 :msgs-per-op 8.416667},
+       :valid? true},
+ :workload {:worst-stale ({:element 0,
+                           :outcome :stable,
+                           :stable-latency 917,
+                           :lost-latency nil,
+                           :known #jepsen.history.Op{:index 4,
+                                                     :time 88142375,
+                                                     :type :ok,
+                                                     :process 2,
+                                                     :f :add,
+                                                     :value 0},
+                           :last-absent #jepsen.history.Op{:index 16,
+                                                           :time 1005964375,
+                                                           :type :invoke,
+                                                           :process 4,
+                                                           :f :read,
+                                                           :value nil}}
+                          {:element 1,
+                           :outcome :stable,
+                           :stable-latency 310,
+                           :lost-latency nil,
+                           :known #jepsen.history.Op{:index 7,
+                                                     :time 358193458,
+                                                     :type :ok,
+                                                     :process 4,
+                                                     :f :add,
+                                                     :value 1},
+                           :last-absent #jepsen.history.Op{:index 9,
+                                                           :time 668624250,
+                                                           :type :invoke,
+                                                           :process 2,
+                                                           :f :read,
+                                                           :value nil}}),
+            :duplicated-count 0,
+            :valid? true,
+            :lost-count 0,
+            :lost (),
+            :stable-count 8,
+            :stale-count 2,
+            :stale (0 1),
+            :never-read-count 0,
+            :stable-latencies {0 0, 0.5 0, 0.95 917, 0.99 917, 1 917},
+            :attempt-count 8,
+            :never-read (),
+            :duplicated {}},
+ :valid? true}
+
+
+Everything looks good! ヽ(‘ー`)ノ

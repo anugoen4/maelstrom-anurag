@@ -1,0 +1,54 @@
+0	:invoke	:read	nil
+:nemesis	:info	:start-partition	:majority
+:nemesis	:info	:start-partition	[:isolated {"n4" #{"n2" "n1" "n3"}, "n0" #{"n2" "n1" "n3"}, "n2" #{"n4" "n0"}, "n1" #{"n4" "n0"}, "n3" #{"n4" "n0"}}]
+2	:invoke	:broadcast	0
+2	:ok	:broadcast	0
+3	:invoke	:read	nil
+4	:invoke	:broadcast	1
+4	:ok	:broadcast	1
+1	:invoke	:read	nil
+2	:invoke	:read	nil
+4	:invoke	:broadcast	2
+4	:ok	:broadcast	2
+:nemesis	:info	:stop-partition	nil
+:nemesis	:info	:stop-partition	:network-healed
+4	:invoke	:broadcast	3
+4	:ok	:broadcast	3
+4	:invoke	:read	nil
+4	:ok	:read	[1 2 3]
+0	:ok	:read	[3]
+0	:invoke	:read	nil
+0	:ok	:read	[0 1 2 3]
+3	:ok	:read	[0 3]
+0	:invoke	:broadcast	4
+0	:ok	:broadcast	4
+3	:invoke	:read	nil
+3	:ok	:read	[0 1 2 3 4]
+3	:invoke	:read	nil
+3	:ok	:read	[0 1 2 3 4]
+3	:invoke	:broadcast	5
+3	:ok	:broadcast	5
+4	:invoke	:broadcast	6
+4	:ok	:broadcast	6
+1	:ok	:read	[0 3 4 5 6]
+0	:invoke	:read	nil
+0	:ok	:read	[0 1 2 3 4 5 6]
+2	:ok	:read	[0 3 4 5 6]
+0	:invoke	:read	nil
+0	:ok	:read	[0 1 2 3 4 5 6]
+1	:invoke	:broadcast	7
+1	:ok	:broadcast	7
+2	:invoke	:read	nil
+2	:ok	:read	[0 1 2 3 4 5 6 7]
+:nemesis	:info	:stop-partition	nil
+:nemesis	:info	:stop-partition	:network-healed
+2	:invoke	:read	nil
+3	:invoke	:read	nil
+4	:invoke	:read	nil
+1	:invoke	:read	nil
+0	:invoke	:read	nil
+3	:ok	:read	[0 1 2 3 4 5 6 7]
+4	:ok	:read	[0 1 2 3 4 5 6 7]
+1	:ok	:read	[0 1 2 3 4 5 6 7]
+0	:ok	:read	[0 1 2 3 4 5 6 7]
+2	:ok	:read	[0 1 2 3 4 5 6 7]
