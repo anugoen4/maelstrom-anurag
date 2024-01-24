@@ -16,4 +16,5 @@
 - In root directory run: `source ./maelstrom/maelstrom.sh test -w unique-ids --bin ./uid/solution.py --time-limit 30 --rate 1000 --node-count 3 --availability total --nemesis partition`
 
 ## Challenge - Broadcast
-- In root directory run: `source ./maelstrom/maelstrom.sh test -w broadcast --bin ./broadcast/solution.py --node-count 5 --time-limit 20  --rate 10`
+- In root directory run for single node cluster: `source ./maelstrom/maelstrom.sh test -w broadcast --bin ./broadcast/solution.py --node-count 1 --time-limit 20  --rate 10`
+- In root directory run for multi node cluster: `source ./maelstrom/maelstrom.sh test -w broadcast --bin ./broadcast/solution.py --node-count 5 --time-limit 20  --rate 10`
