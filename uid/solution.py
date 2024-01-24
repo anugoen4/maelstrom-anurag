@@ -1,48 +1,17 @@
 #!/usr/bin/env python3
-
-import sys
+import uuid, sys
 from pathlib import Path
 
 sys.path.append(str(Path(__file__).parent.parent))
-
-import asyncio
-from api import (
-    GenerateOkPayload,
-    GeneratePayload,
-    InitOkPayload,
-    InitPayload,
-    Message,
-    NodeBase,
-    Reply,
-    print,
-)
+from Node.node import Node, Request, Body
 
 
-class Node(NodeBase):
-    def __init__(self):
-        self.last_id = 0
-
-    async def msg_init(self, msg: Message[InitPayload]) -> Reply[InitOkPayload]:
-        return InitOkPayload()
-
-    async def msg_generate(
-        self, msg: Message[GeneratePayload]
-    ) -> Reply[GenerateOkPayload]:
-        # expected time to colision at 1000 IDs/s for 3 nodes:
-        # 4 days (there are 1,056,964,608 unique floats between 0 and 1)
-
-        # from random import random
-        # return msg.src, GenerateOkPayload(id=random())
-
-        res = f"{self.node_id}-{self.last_id}"
-        self.last_id += 1
-
-        return GenerateOkPayload(id=res)
+async def generate(node: Node, req: Request) -> Body:
+    new_id = str(uuid.uuid4())
+    return {"type": "generate_ok", "id": f"{node.node_id}-{new_id}"}
 
 
-async def main():
+if __name__ == "__main__":
     n = Node()
-    await n.run()
-
-
-asyncio.run(main())
+    n.on("generate", generate)
+    n.run()
